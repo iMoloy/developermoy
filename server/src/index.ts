@@ -3,8 +3,10 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { rateLimit } from 'express-rate-limit';
+import { toNodeHandler } from 'better-auth/node';
 import { connectDB } from './config/db.js';
 import { corsMiddleware } from './config/cors.js';
+import { initAuth } from './lib/auth.js';
 import { rootRouter } from './routes/index.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
@@ -35,7 +37,11 @@ if (process.env['NODE_ENV'] !== 'test') {
   app.use(morgan(process.env['NODE_ENV'] === 'production' ? 'combined' : 'dev'));
 }
 
-// ── Routes ─────────────────────────────────────────────────────
+// ── Application Routes ─────────────────────────────────────────
+// NOTE: Better Auth handler is mounted BEFORE the API router.
+// It intercepts all /api/auth/* requests (sign-in, sign-up,
+// session refresh, sign-out, OAuth callbacks, etc.).
+// Our custom /api/v1/auth/verify sits under rootRouter.
 app.use('/api', rootRouter);
 
 // ── Error Handler (must be last) ──────────────────────────────
@@ -43,10 +49,22 @@ app.use(errorHandler);
 
 // ── Bootstrap ─────────────────────────────────────────────────
 async function bootstrap(): Promise<void> {
+  // 1. Connect to MongoDB first — auth adapter needs a live connection
   await connectDB();
+
+  // 2. Initialise Better Auth (wires the MongoDB adapter)
+  const auth = initAuth();
+
+  // 3. Mount Better Auth's built-in handler at /api/auth/*
+  //    This handles: sign-in, sign-up, sign-out, session,
+  //    email verification, password reset, OAuth callbacks.
+  app.all('/api/auth/{*path}', toNodeHandler(auth));
+
+  // 4. Start listening
   app.listen(PORT, () => {
     console.log(`✓ Server running on http://localhost:${PORT}`);
     console.log(`  ENV: ${process.env['NODE_ENV'] ?? 'development'}`);
+    console.log(`  Auth: http://localhost:${PORT}/api/auth`);
   });
 }
 
@@ -56,3 +74,4 @@ bootstrap().catch((err: unknown) => {
 });
 
 export default app;
+
