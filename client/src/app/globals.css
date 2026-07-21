@@ -1,0 +1,202 @@
+/* ── Fontshare ─────────────────────────────────────────────────
+   Loaded via <link> in layout.tsx. Declared here for reference.
+   Primary:   Satoshi      → body text, UI labels
+   Display:   Cabinet Grotesk → headings, hero text
+   Mono:      JetBrains Mono  → code snippets
+──────────────────────────────────────────────────────────────── */
+
+/* ── Tailwind Directives ──────────────────────────────────────── */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Design Tokens (CSS Variables) ────────────────────────── */
+@layer base {
+  :root {
+    /* Brand */
+    --color-brand-50: 240 244 255;
+    --color-brand-100: 221 230 255;
+    --color-brand-500: 64 96 248;
+    --color-brand-600: 42 62 237;
+    --color-brand-700: 34 48 214;
+
+    /* Surface (light mode) */
+    --color-surface-0: 255 255 255;
+    --color-surface-50: 248 249 252;
+    --color-surface-100: 240 242 248;
+    --color-surface-900: 20 27 46;
+    --color-surface-950: 10 15 30;
+
+    /* Typography */
+    --font-sans: 'Satoshi', system-ui, sans-serif;
+    --font-display: 'Cabinet Grotesk', 'Satoshi', sans-serif;
+    --font-mono: 'JetBrains Mono', Menlo, monospace;
+
+    /* Semantic */
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+
+    /* Shadcn UI CSS variables */
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 228 93% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 214 32% 91%;
+    --muted-foreground: 215 20% 47%;
+    --accent: 214 32% 91%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 228 93% 65%;
+  }
+
+  .dark {
+    --background: 224 44% 7%;
+    --foreground: 213 31% 91%;
+    --card: 224 38% 11%;
+    --card-foreground: 213 31% 91%;
+    --popover: 224 38% 11%;
+    --popover-foreground: 213 31% 91%;
+    --primary: 228 93% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 225 30% 18%;
+    --secondary-foreground: 213 31% 91%;
+    --muted: 225 30% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 225 30% 18%;
+    --accent-foreground: 213 31% 91%;
+    --destructive: 0 63% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 225 30% 20%;
+    --input: 225 30% 20%;
+    --ring: 228 93% 65%;
+  }
+}
+
+/* ── Base Reset & Defaults ────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    min-height: 100dvh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+  }
+
+  code, kbd, pre, samp {
+    font-family: var(--font-mono);
+  }
+
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar (dark theme) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* ── Utility Layer ─────────────────────────────────────────────── */
+@layer utilities {
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #4060f8 0%, #6488fc 50%, #97b2ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glass morphism card */
+  .glass {
+    background: hsl(var(--card) / 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.5);
+  }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  /* Shimmer skeleton */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--muted-foreground) / 0.1) 50%,
+      hsl(var(--muted)) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+
+  /* Layout helpers */
+  .container-narrow {
+    max-width: 720px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .container-wide {
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+}
