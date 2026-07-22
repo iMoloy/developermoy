@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { v1Router } from './v1/index.js';
+import { projectsRouter } from './v1/projects.js';
 
 export const rootRouter = Router();
 
@@ -14,6 +15,9 @@ rootRouter.get('/health', (_req, res) => {
     },
   });
 });
+
+// ── Direct /api/projects alias ─────────────────────────────────
+rootRouter.use('/projects', projectsRouter);
 
 // ── API v1 ─────────────────────────────────────────────────────
 rootRouter.use('/v1', v1Router);
