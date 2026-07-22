@@ -35,6 +35,19 @@ export interface User extends BaseEntity {
   role: 'admin' | 'user';
 }
 
+/** Project model */
+export interface Project extends BaseEntity {
+  ownerId: string;
+  title: string;
+  category: 'web' | 'mobile' | 'open-source' | 'design' | 'other';
+  description: string;
+  images: string[];
+  status: 'draft' | 'published' | 'archived';
+  tags?: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
 /** Navigation link */
 export interface NavLink {
   label: string;
