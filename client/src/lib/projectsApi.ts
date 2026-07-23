@@ -156,3 +156,44 @@ export async function getProjectsApi(
     };
   }
 }
+
+/**
+ * Fetches a single project by ID from GET /api/v1/projects/:id with mock fallback.
+ */
+export async function getProjectByIdApi(
+  id: string
+): Promise<{ success: boolean; data: Project }> {
+  try {
+    const res = await axios.get<{ success: boolean; data: Project }>(
+      `${API_BASE_URL}/api/v1/projects/${id}`,
+      { timeout: 3000 }
+    );
+    return res.data;
+  } catch (_err) {
+    const found = MOCK_PROJECTS.find((p) => p._id === id);
+    if (!found) {
+      throw new Error('Project not found');
+    }
+    return {
+      success: true,
+      data: found,
+    };
+  }
+}
+
+/**
+ * Fetches related projects excluding the current project ID.
+ */
+export async function getRelatedProjectsApi(
+  currentId: string,
+  category?: string,
+  limit = 3
+): Promise<Project[]> {
+  try {
+    const res = await getProjectsApi({ category, limit: 6 });
+    return res.data.filter((p) => p._id !== currentId).slice(0, limit);
+  } catch (_err) {
+    return MOCK_PROJECTS.filter((p) => p._id !== currentId).slice(0, limit);
+  }
+}
+
