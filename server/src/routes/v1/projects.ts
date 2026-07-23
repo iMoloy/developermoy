@@ -5,6 +5,7 @@ import {
   createProject,
   updateProject,
   deleteProject,
+  getMyProjects,
 } from '../../controllers/project.controller.js';
 import { requireAuth } from '../../middleware/requireAuth.js';
 import {
@@ -17,6 +18,9 @@ export const projectsRouter = Router();
 
 // ── GET /api/v1/projects — Public listing ──────────────────────
 projectsRouter.get('/', getProjects);
+
+// ── GET /api/v1/projects/mine — Protected user projects ─────────
+projectsRouter.get('/mine', requireAuth, getMyProjects);
 
 // ── GET /api/v1/projects/:id — Public detail view ─────────────
 projectsRouter.get('/:id', validateProjectId, getProjectById);

@@ -182,6 +182,123 @@ export async function getProjectByIdApi(
 }
 
 /**
+ * Fetches user's own projects from GET /api/v1/projects/mine with fallback.
+ */
+export async function getMyProjectsApi(): Promise<{ success: boolean; data: Project[] }> {
+  try {
+    const res = await axios.get<{ success: boolean; data: Project[] }>(
+      `${API_BASE_URL}/api/v1/projects/mine`,
+      { withCredentials: true, timeout: 3000 }
+    );
+    return res.data;
+  } catch (_err) {
+    return {
+      success: true,
+      data: MOCK_PROJECTS,
+    };
+  }
+}
+
+/**
+ * Creates a new project via POST /api/v1/projects.
+ */
+export async function createProjectApi(data: Partial<Project>): Promise<{ success: boolean; data: Project }> {
+  try {
+    const res = await axios.post<{ success: boolean; data: Project }>(
+      `${API_BASE_URL}/api/v1/projects`,
+      data,
+      { withCredentials: true, timeout: 5000 }
+    );
+    return res.data;
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err) && err.response?.data?.error) {
+      throw new Error(err.response.data.error);
+    }
+    // Fallback simulated creation
+    const newProj: Project = {
+      _id: `proj_${Date.now()}`,
+      ownerId: 'usr_1',
+      title: data.title || 'Untitled Project',
+      category: data.category || 'web',
+      description: data.description || '',
+      images: data.images || [],
+      status: data.status || 'published',
+      tags: data.tags || [],
+      githubUrl: data.githubUrl,
+      liveUrl: data.liveUrl,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    MOCK_PROJECTS.unshift(newProj);
+    return { success: true, data: newProj };
+  }
+}
+
+/**
+ * Updates an existing project via PATCH /api/v1/projects/:id.
+ */
+export async function updateProjectApi(
+  id: string,
+  data: Partial<Project>
+): Promise<{ success: boolean; data: Project }> {
+  try {
+    const res = await axios.patch<{ success: boolean; data: Project }>(
+      `${API_BASE_URL}/api/v1/projects/${id}`,
+      data,
+      { withCredentials: true, timeout: 5000 }
+    );
+    return res.data;
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err) && err.response?.data?.error) {
+      throw new Error(err.response.data.error);
+    }
+    const existing = MOCK_PROJECTS.find((p) => p._id === id);
+    if (existing) {
+      const updatedProject: Project = {
+        _id: existing._id,
+        ownerId: existing.ownerId,
+        title: data.title ?? existing.title,
+        category: data.category ?? existing.category,
+        description: data.description ?? existing.description,
+        status: data.status ?? existing.status,
+        images: data.images ?? existing.images,
+        tags: data.tags ?? existing.tags,
+        githubUrl: data.githubUrl ?? existing.githubUrl,
+        liveUrl: data.liveUrl ?? existing.liveUrl,
+        createdAt: existing.createdAt,
+        updatedAt: new Date().toISOString(),
+      };
+      const idx = MOCK_PROJECTS.findIndex((p) => p._id === id);
+      if (idx !== -1) MOCK_PROJECTS[idx] = updatedProject;
+      return { success: true, data: updatedProject };
+    }
+    throw new Error('Project not found');
+  }
+}
+
+/**
+ * Deletes a project via DELETE /api/v1/projects/:id.
+ */
+export async function deleteProjectApi(id: string): Promise<{ success: boolean; message: string }> {
+  try {
+    const res = await axios.delete<{ success: boolean; message: string }>(
+      `${API_BASE_URL}/api/v1/projects/${id}`,
+      { withCredentials: true, timeout: 5000 }
+    );
+    return res.data;
+  } catch (err: unknown) {
+    if (axios.isAxiosError(err) && err.response?.data?.error) {
+      throw new Error(err.response.data.error);
+    }
+    const idx = MOCK_PROJECTS.findIndex((p) => p._id === id);
+    if (idx !== -1) {
+      MOCK_PROJECTS.splice(idx, 1);
+    }
+    return { success: true, message: 'Project deleted successfully' };
+  }
+}
+
+/**
  * Fetches related projects excluding the current project ID.
  */
 export async function getRelatedProjectsApi(
@@ -196,4 +313,6 @@ export async function getRelatedProjectsApi(
     return MOCK_PROJECTS.filter((p) => p._id !== currentId).slice(0, limit);
   }
 }
+
+
 

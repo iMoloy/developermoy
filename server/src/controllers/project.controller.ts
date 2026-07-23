@@ -206,3 +206,30 @@ export const deleteProject = asyncHandler(
     });
   }
 );
+
+// ── GET /api/v1/projects/mine ──────────────────────────────────
+/**
+ * Protected endpoint to fetch all projects belonging to the authenticated user.
+ */
+export const getMyProjects = asyncHandler(
+  async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
+    const authUser = (req as AuthenticatedRequest).user;
+
+    if (!authUser) {
+      throw new AppError('Authentication required.', 401);
+    }
+
+    const userDoc = await User.findOne({ authId: authUser.id });
+    if (!userDoc) {
+      throw new AppError('User profile not found.', 404);
+    }
+
+    const projects = await Project.find({ ownerId: userDoc._id }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      data: projects,
+    });
+  }
+);
+
