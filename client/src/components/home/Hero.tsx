@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Github, Sparkles, Terminal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 /**
- * Hero section — Minimalist, high-impact landing header.
- * Utilizes Cabinet Grotesk (font-display) and Satoshi (font-sans) Fontshare typography.
+ * Hero section — Minimalist, high-impact landing header with 3D glassmorphic preview image.
  */
 export default function Hero() {
   return (
@@ -62,7 +62,7 @@ export default function Hero() {
         </div>
 
         {/* ── Tech Stack Pill Strip ─────────────────────────────── */}
-        <div className="mt-14 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-[hsl(var(--muted-foreground))]">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-[hsl(var(--muted-foreground))]">
           <span className="flex items-center gap-1.5 rounded-md border border-[hsl(var(--border))] bg-surface-900/60 px-2.5 py-1">
             <Terminal size={12} className="text-brand-400" />
             Next.js 15 App Router
@@ -79,6 +79,21 @@ export default function Hero() {
           <span className="rounded-md border border-[hsl(var(--border))] bg-surface-900/60 px-2.5 py-1">
             Tailwind CSS
           </span>
+        </div>
+
+        {/* ── Hero Showcase Dashboard Image ────────────────────── */}
+        <div className="mt-14 relative w-full max-w-5xl overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-surface-900/40 p-2 shadow-card-hover group">
+          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-surface-950">
+            <Image
+              src="/images/hero-mockup.png"
+              alt="DeveloperMoy Platform Preview"
+              fill
+              priority
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
+            {/* Ambient Overlay Gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[hsl(var(--background))] via-transparent to-transparent opacity-60" />
+          </div>
         </div>
       </div>
     </section>

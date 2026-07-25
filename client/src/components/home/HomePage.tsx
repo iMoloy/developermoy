@@ -6,19 +6,20 @@ import { ArrowRight, Mail } from 'lucide-react';
 import Hero from './Hero';
 import InteractiveStats from './InteractiveStats';
 import ValueProposition from './ValueProposition';
+import DeveloperSpotlight from './DeveloperSpotlight';
 import FeaturedProjects from './FeaturedProjects';
 import ContactModal from '@/components/common/ContactModal';
 import { Button } from '@/components/ui/button';
 
 /**
- * HomePage — Main landing view assembling Hero, InteractiveStats, ValueProposition, FeaturedProjects, and CTA banner.
+ * HomePage — Main landing view assembling Hero, InteractiveStats, ValueProposition, DeveloperSpotlight, FeaturedProjects, and CTA banner.
  */
 export default function HomePage() {
   const [contactOpen, setContactOpen] = useState(false);
 
   return (
     <div className="flex flex-col min-h-dvh">
-      {/* ── 1. Hero Section ──────────────────────────────────── */}
+      {/* ── 1. Hero Section with 3D Preview Mockup ───────────── */}
       <Hero />
 
       {/* ── 2. Dynamic Interactive Stats Section ──────────────── */}
@@ -27,10 +28,13 @@ export default function HomePage() {
       {/* ── 3. Value Proposition Section ─────────────────────── */}
       <ValueProposition />
 
-      {/* ── 4. Featured Projects Showcase Section ────────────── */}
+      {/* ── 4. Developer Spotlight & Portrait Section ────────── */}
+      <DeveloperSpotlight />
+
+      {/* ── 5. Featured Projects Showcase Section with Cover Cards ── */}
       <FeaturedProjects />
 
-      {/* ── 5. Call to Action Banner Section ─────────────────── */}
+      {/* ── 6. Call to Action Banner Section ─────────────────── */}
       <section className="relative border-t border-[hsl(var(--border))] bg-surface-950/60 py-20">
         <div className="container-wide">
           <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-gradient-to-r from-surface-900 via-surface-900 to-brand-950/40 p-8 sm:p-12 md:p-16">

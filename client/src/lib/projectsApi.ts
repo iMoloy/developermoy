@@ -21,11 +21,11 @@ const MOCK_PROJECTS: Project[] = [
     category: 'web',
     description:
       'Full-stack developer platform built with Next.js 15 App Router, Express, TypeScript, Mongoose, and custom design tokens.',
-    images: [],
+    images: ['/images/project-ecosystem.png'],
     status: 'published',
     tags: ['Next.js 15', 'TypeScript', 'Express', 'MongoDB', 'Tailwind'],
     githubUrl: 'https://github.com/iMoloy/developermoy',
-    liveUrl: 'https://moloy.is-a.dev',
+    liveUrl: 'https://developermoy.vercel.app',
     createdAt: new Date('2026-07-20').toISOString(),
     updatedAt: new Date('2026-07-22').toISOString(),
   },
@@ -36,7 +36,7 @@ const MOCK_PROJECTS: Project[] = [
     category: 'web',
     description:
       'AI-assisted script generator and media workflow orchestrator with real-time state sync and structured API management.',
-    images: [],
+    images: ['/images/project-cognix.png'],
     status: 'published',
     tags: ['React', 'Node.js', 'OpenAI API', 'Tailwind CSS'],
     githubUrl: 'https://github.com/iMoloy/cognix',
@@ -50,7 +50,7 @@ const MOCK_PROJECTS: Project[] = [
     category: 'open-source',
     description:
       'Multi-agent orchestration framework for automated software diagnostics, continuous testing, and repository analysis.',
-    images: [],
+    images: ['/images/project-agy.png'],
     status: 'published',
     tags: ['TypeScript', 'Node.js', 'AGY SDK', 'Docker'],
     githubUrl: 'https://github.com/iMoloy/agy-agents',
@@ -64,7 +64,7 @@ const MOCK_PROJECTS: Project[] = [
     category: 'mobile',
     description:
       'Cross-platform React Native application providing real-time telemetry tracking and push notification services.',
-    images: [],
+    images: ['/images/hero-mockup.png'],
     status: 'published',
     tags: ['React Native', 'TypeScript', 'Firebase', 'Expo'],
     githubUrl: 'https://github.com/iMoloy/nexus-mobile',
@@ -78,7 +78,7 @@ const MOCK_PROJECTS: Project[] = [
     category: 'design',
     description:
       'Figma design system and Tailwind CSS configuration token set crafted for sleek dark-mode developer tools.',
-    images: [],
+    images: ['/images/project-ecosystem.png'],
     status: 'published',
     tags: ['Design System', 'Figma', 'Tailwind CSS', 'Typography'],
     createdAt: new Date('2026-06-15').toISOString(),
@@ -91,7 +91,7 @@ const MOCK_PROJECTS: Project[] = [
     category: 'open-source',
     description:
       'Production-ready boilerplate combining Next.js 15, Express, MongoDB Mongoose, and Shared TypeScript Configs.',
-    images: [],
+    images: ['/images/project-agy.png'],
     status: 'published',
     tags: ['Turborepo', 'Next.js', 'Express', 'Monorepo'],
     githubUrl: 'https://github.com/iMoloy/turborepo-starter',

@@ -16,11 +16,11 @@ const MOCK_FEATURED_PROJECTS: Project[] = [
     category: 'web',
     description:
       'Full-stack developer platform built with Next.js 15 App Router, Express, TypeScript, Mongoose, and custom design tokens.',
-    images: [],
+    images: ['/images/project-ecosystem.png'],
     status: 'published',
     tags: ['Next.js 15', 'TypeScript', 'Express', 'MongoDB', 'Tailwind'],
     githubUrl: 'https://github.com/iMoloy/developermoy',
-    liveUrl: 'https://moloy.is-a.dev',
+    liveUrl: 'https://developermoy.vercel.app',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },
@@ -31,7 +31,7 @@ const MOCK_FEATURED_PROJECTS: Project[] = [
     category: 'web',
     description:
       'AI-assisted script generator and media workflow orchestrator with real-time state sync and structured API management.',
-    images: [],
+    images: ['/images/project-cognix.png'],
     status: 'published',
     tags: ['React', 'Node.js', 'OpenAI API', 'Tailwind CSS'],
     githubUrl: 'https://github.com/iMoloy/cognix',
@@ -45,7 +45,7 @@ const MOCK_FEATURED_PROJECTS: Project[] = [
     category: 'open-source',
     description:
       'Multi-agent orchestration framework for automated software diagnostics, continuous testing, and repository analysis.',
-    images: [],
+    images: ['/images/project-agy.png'],
     status: 'published',
     tags: ['TypeScript', 'Node.js', 'AGY SDK', 'Docker'],
     githubUrl: 'https://github.com/iMoloy/agy-agents',
