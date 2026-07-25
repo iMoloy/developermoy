@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Code2, Github, Twitter, Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { Github, Twitter, Mail, MapPin, ArrowUpRight } from 'lucide-react';
 
 // ── Link data ──────────────────────────────────────────────────
 const quickLinks = [
@@ -76,9 +77,17 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 font-display text-lg font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+              className="inline-flex items-center gap-2.5 font-display text-lg font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm group"
             >
-              <Code2 size={18} className="text-brand-400" />
+              <div className="relative h-7 w-7 overflow-hidden rounded-md bg-brand-500/10 p-0.5 border border-brand-500/20 group-hover:border-brand-400/50 transition-colors">
+                <Image
+                  src="/logo.png"
+                  alt="DeveloperMoy Logo"
+                  width={28}
+                  height={28}
+                  className="h-full w-full object-cover rounded"
+                />
+              </div>
               <span className="text-gradient">DeveloperMoy</span>
             </Link>
             <p className="mt-3 text-sm text-[hsl(var(--muted-foreground))] leading-relaxed max-w-[220px]">

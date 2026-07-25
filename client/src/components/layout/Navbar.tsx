@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, Code2, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+
+import Image from 'next/image';
 
 // ── Primary Navigation Links ───────────────────────────────────
 const navLinks = [
@@ -79,9 +81,17 @@ export default function Navbar() {
         {/* ── Brand Logo ──────────────────────────────────────── */}
         <Link
           href="/"
-          className="flex items-center gap-2 font-display font-bold text-xl tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm"
+          className="flex items-center gap-2.5 font-display font-bold text-xl tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-sm group"
         >
-          <Code2 size={20} className="text-brand-400" />
+          <div className="relative h-8 w-8 overflow-hidden rounded-lg bg-brand-500/10 p-0.5 border border-brand-500/20 group-hover:border-brand-400/50 transition-colors">
+            <Image
+              src="/logo.png"
+              alt="DeveloperMoy Logo"
+              width={32}
+              height={32}
+              className="h-full w-full object-cover rounded-md"
+            />
+          </div>
           <span className="text-gradient">DeveloperMoy</span>
         </Link>
 
