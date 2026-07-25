@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Cpu, ShieldCheck, Zap, Layers, Code, Cloud } from 'lucide-react';
 
 interface FeatureItem {
@@ -7,50 +8,56 @@ interface FeatureItem {
   title: string;
   description: string;
   badge?: string;
+  image?: string;
 }
 
 const features: FeatureItem[] = [
   {
-    icon: Zap,
-    title: 'High-Performance Architecture',
+    icon: Cloud,
+    title: 'Cloud Infrastructure & CI/CD',
     description:
-      'Engineered with Next.js 15 App Router and Express.js, delivering fast page transitions, optimized server loads, and instant interactions.',
-    badge: 'Core',
-  },
-  {
-    icon: Code,
-    title: 'End-to-End Type Safety',
-    description:
-      'Strict TypeScript implementation across database schemas, REST endpoints, context state, and client UI components for maximum reliability.',
+      'Structured for multi-environment cloud deployments — Next.js client on Vercel and Express API server on Render.',
+    badge: 'Cloud',
+    image: '/images/arch-cloud.png',
   },
   {
     icon: ShieldCheck,
-    title: 'Secure Auth & Route Guards',
+    title: 'End-to-End Type Safety & Security',
     description:
-      'Integrated authentication flow with token validation, Mongoose user synchronization, and protected client route wrappers.',
-  },
-  {
-    icon: Layers,
-    title: 'Modular Design Tokens',
-    description:
-      'Clean typography with Fontshare Satoshi & Cabinet Grotesk, custom dark mode surface palettes, and accessible Shadcn & DaisyUI primitives.',
+      'Strict TypeScript implementation across database schemas, REST endpoints, context state, and client UI components.',
+    badge: 'Security',
+    image: '/images/arch-security.png',
   },
   {
     icon: Cpu,
-    title: 'Turborepo Workspaces',
+    title: 'Monorepo Architecture & Modular Specs',
     description:
-      'Monorepo organization keeping client and server logic cleanly separated while sharing configuration rules and build pipelines.',
+      'Turborepo organization keeping client and server logic cleanly separated while sharing configuration rules.',
+    badge: 'Architecture',
+    image: '/images/arch-monorepo.png',
   },
   {
-    icon: Cloud,
-    title: 'Production-Ready CI/CD',
+    icon: Zap,
+    title: 'High-Performance Next.js 15',
     description:
-      'Structured for multi-environment cloud deployments — Next.js client on Vercel and Express API server on Render.',
+      'Engineered with Next.js 15 App Router and Express.js, delivering fast page transitions and optimized server loads.',
+  },
+  {
+    icon: Layers,
+    title: 'Modular Design System & Typography',
+    description:
+      'Clean typography with Fontshare Satoshi & Cabinet Grotesk, custom dark mode surface palettes, and accessible UI primitives.',
+  },
+  {
+    icon: Code,
+    title: 'MongoDB & Express Data Layer',
+    description:
+      'Robust schema design with Mongoose ORM, index optimization, and secure JSON response normalization.',
   },
 ];
 
 /**
- * ValueProposition section — Clean feature grid highlighting platform principles.
+ * ValueProposition section — Feature grid with 3D architecture image previews.
  */
 export default function ValueProposition() {
   return (
@@ -76,25 +83,43 @@ export default function ValueProposition() {
             return (
               <div
                 key={feature.title}
-                className="group relative rounded-xl border border-[hsl(var(--border))] bg-surface-900/40 p-6 transition-all duration-200 hover:border-brand-500/30 hover:bg-surface-900/80 hover:shadow-card-hover"
+                className="group relative overflow-hidden rounded-xl border border-[hsl(var(--border))] bg-surface-900/40 transition-all duration-300 hover:border-brand-500/40 hover:bg-surface-900/90 hover:shadow-card-hover flex flex-col justify-between"
               >
-                <div className="flex items-center justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-400 group-hover:scale-105 transition-transform duration-200">
-                    <Icon size={20} />
-                  </div>
-                  {feature.badge && (
-                    <span className="rounded-full bg-brand-500/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-brand-400 border border-brand-500/20">
-                      {feature.badge}
-                    </span>
+                <div>
+                  {/* Image Graphic Preview if available */}
+                  {feature.image && (
+                    <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-[hsl(var(--border))] bg-surface-950">
+                      <Image
+                        src={feature.image}
+                        alt={feature.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 400px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-surface-900/90 via-transparent to-transparent" />
+                    </div>
                   )}
-                </div>
 
-                <h3 className="mt-5 font-display text-lg font-bold text-[hsl(var(--foreground))] group-hover:text-brand-400 transition-colors">
-                  {feature.title}
-                </h3>
-                <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
-                  {feature.description}
-                </p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-brand-500/20 bg-brand-500/10 text-brand-400 group-hover:scale-110 transition-transform duration-200">
+                        <Icon size={20} />
+                      </div>
+                      {feature.badge && (
+                        <span className="rounded-full bg-brand-500/10 px-2.5 py-0.5 text-[10px] font-semibold tracking-wide text-brand-400 border border-brand-500/20">
+                          {feature.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="mt-4 font-display text-lg font-bold text-[hsl(var(--foreground))] group-hover:text-brand-400 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="mt-2 text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
+                      {feature.description}
+                    </p>
+                  </div>
+                </div>
               </div>
             );
           })}
