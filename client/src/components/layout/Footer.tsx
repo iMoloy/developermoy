@@ -6,7 +6,6 @@ const quickLinks = [
   { label: 'Projects', href: '/projects' },
   { label: 'Writing', href: '/writing' },
   { label: 'About', href: '/about' },
-  { label: 'Dashboard', href: '/dashboard' },
 ] as const;
 
 const supportLinks = [
