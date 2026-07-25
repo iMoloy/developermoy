@@ -1,28 +1,36 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Mail } from 'lucide-react';
 import Hero from './Hero';
+import InteractiveStats from './InteractiveStats';
 import ValueProposition from './ValueProposition';
 import FeaturedProjects from './FeaturedProjects';
+import ContactModal from '@/components/common/ContactModal';
 import { Button } from '@/components/ui/button';
 
 /**
- * HomePage — Main landing view assembling Hero, ValueProposition, FeaturedProjects, and CTA banner.
+ * HomePage — Main landing view assembling Hero, InteractiveStats, ValueProposition, FeaturedProjects, and CTA banner.
  */
 export default function HomePage() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <div className="flex flex-col min-h-dvh">
       {/* ── 1. Hero Section ──────────────────────────────────── */}
       <Hero />
 
-      {/* ── 2. Value Proposition Section ─────────────────────── */}
+      {/* ── 2. Dynamic Interactive Stats Section ──────────────── */}
+      <InteractiveStats />
+
+      {/* ── 3. Value Proposition Section ─────────────────────── */}
       <ValueProposition />
 
-      {/* ── 3. Featured Projects Showcase Section ────────────── */}
+      {/* ── 4. Featured Projects Showcase Section ────────────── */}
       <FeaturedProjects />
 
-      {/* ── 4. Call to Action Banner Section ─────────────────── */}
+      {/* ── 5. Call to Action Banner Section ─────────────────── */}
       <section className="relative border-t border-[hsl(var(--border))] bg-surface-950/60 py-20">
         <div className="container-wide">
           <div className="relative overflow-hidden rounded-2xl border border-[hsl(var(--border))] bg-gradient-to-r from-surface-900 via-surface-900 to-brand-950/40 p-8 sm:p-12 md:p-16">
@@ -38,11 +46,13 @@ export default function HomePage() {
               </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Button size="lg" asChild className="gap-2 shadow-glow-sm">
-                  <a href="mailto:moloy.paul@example.com">
-                    <Mail size={16} />
-                    Get in Touch
-                  </a>
+                <Button
+                  size="lg"
+                  onClick={() => setContactOpen(true)}
+                  className="gap-2 shadow-glow-sm cursor-pointer"
+                >
+                  <Mail size={16} />
+                  Get in Touch
                 </Button>
                 <Button variant="outline" size="lg" asChild className="gap-2">
                   <Link href="/about">
@@ -61,6 +71,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Contact Modal */}
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
     </div>
   );
 }

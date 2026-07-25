@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
 import Image from 'next/image';
+import ContactModal from '@/components/common/ContactModal';
 
 // ── Primary Navigation Links ───────────────────────────────────
 const navLinks = [
@@ -52,6 +53,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   // Detect scroll for border + backdrop blur enhancement
   useEffect(() => {
@@ -109,11 +111,13 @@ export default function Navbar() {
 
         {/* ── Desktop Primary CTA ─────────────────────────────── */}
         <div className="hidden md:flex items-center gap-3">
-          <Button size="sm" asChild className="gap-1.5 shadow-glow-sm">
-            <a href="mailto:moloy.paul@example.com">
-              Contact Us
-              <ArrowUpRight size={14} />
-            </a>
+          <Button
+            size="sm"
+            onClick={() => setContactOpen(true)}
+            className="gap-1.5 shadow-glow-sm"
+          >
+            Contact Us
+            <ArrowUpRight size={14} />
           </Button>
         </div>
 
@@ -170,6 +174,8 @@ export default function Navbar() {
           </nav>
         </div>
       )}
+      {/* ── Contact Modal ─────────────────────────────────────── */}
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
     </header>
   );
 }
