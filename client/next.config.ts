@@ -3,6 +3,9 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
   reactStrictMode: true,
 
+  // Disable Next.js default X-Frame-Options DENY header so site can be embedded in iframes
+  poweredByHeader: false,
+
   images: {
     remotePatterns: [
       {
@@ -23,7 +26,7 @@ const nextConfig: NextConfig = {
     return [];
   },
 
-  // Security headers
+  // Security headers — X-Frame-Options intentionally omitted to allow iframe embedding
   async headers() {
     return [
       {
@@ -32,6 +35,8 @@ const nextConfig: NextConfig = {
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          // Allow embedding in iframes from any origin
+          { key: 'Content-Security-Policy', value: "frame-ancestors *" },
         ],
       },
     ];
